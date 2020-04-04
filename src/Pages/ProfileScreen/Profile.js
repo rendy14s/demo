@@ -9,12 +9,15 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
-export class Home extends Component {
+export class Profile extends Component {
 
     render() {
         return (
             <View style={styles.container}>
-                
+                <Image
+                    style={{ width: 600, height: 500 }}
+                    source={require('./../../assets/logo.png')}
+                />
             </View>
         );
     }
