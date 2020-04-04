@@ -14,14 +14,7 @@ export class Home extends Component {
     render() {
         return (
             <View style={styles.container}>
-<<<<<<< HEAD
                 
-=======
-                {/* <Image
-                    style={{ width: 600, height: 500 }}
-                    source={require('./../assets/logo.png')}
-                /> */}
->>>>>>> tutorial-react-navigation
             </View>
         );
     }
