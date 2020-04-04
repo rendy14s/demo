@@ -7,14 +7,17 @@
  */
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 
 export class Home extends Component {
 
     render() {
         return (
             <View style={styles.container}>
-                <Text> Home Page </Text>
+                {/* <Image
+                    style={{ width: 600, height: 500 }}
+                    source={require('./../assets/logo.png')}
+                /> */}
             </View>
         );
     }
@@ -22,6 +25,7 @@ export class Home extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        alignItems: 'center'
     }
 });
