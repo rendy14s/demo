@@ -20,9 +20,30 @@ const Stack = createStackNavigator();
 
 const MainStack = () => {
     return (<Stack.Navigator>
-        <Stack.Screen name="HomeScreen" component={Home} />
-        <Stack.Screen name="NewsScreen" component={News} />
-        <Stack.Screen name="ProfileScreen" component={Profile} />
+        <Stack.Screen
+            name="HomeScreen"
+            component={Home}
+            options={{
+                headerTitle: "Dashboard",
+                headerTitleAlign: 'center'
+            }}
+        />
+        <Stack.Screen
+            name="NewsScreen"
+            component={News}
+            options={{
+                headerTitle: "News",
+                headerTitleAlign: 'center'
+            }}
+        />
+        <Stack.Screen
+            name="ProfileScreen"
+            component={Profile}
+            options={{
+                headerTitle: "Profile",
+                headerTitleAlign: 'center'
+            }}
+        />
     </Stack.Navigator>)
 }
 
