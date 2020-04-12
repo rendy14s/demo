@@ -9,15 +9,12 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
-export class Profile extends Component {
+export class Registration extends Component {
 
     render() {
         return (
             <View style={styles.container}>
-                <Image
-                    style={{ width: 600, height: 500 }}
-                    source={require('./../assets/logo.png')}
-                />
+                <Text>Registration Page</Text>
             </View>
         );
     }
@@ -25,7 +22,6 @@ export class Profile extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: 'center'
+        flex: 1
     }
 });
