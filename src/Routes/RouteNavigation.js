@@ -1,60 +1,61 @@
-import React, { Component } from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import React, { useState, useEffect, createContext } from 'react';
+import auth from '@react-native-firebase/auth';
 import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
+
+import { Login } from './../Pages/Login';
 import { Home } from './../Pages/Home';
-import { News } from './../Pages/News';
-import { Profile } from './../Pages/Profile';
 
-const Stack = createStackNavigator();
+const AuthContext = createContext(null)
+const Stack = createStackNavigator()
 
-// function MainStack() {
-//     return (
-//         <Stack.Navigator>
-//             <Stack.Screen name="HomeScreen" component={Home} />
-//             <Stack.Screen name="NewsScreen" component={News} />
-//             <Stack.Screen name="ProfileScreen" component={Profile} />
-//         </Stack.Navigator>
-//     );
-// }
+const Routes = () => {
+    const [initializing, setInitializing] = useState(true)
+    const [user, setUser] = useState(null)
 
-const MainStack = () => {
-    return (<Stack.Navigator>
-        <Stack.Screen
-            name="HomeScreen"
-            component={Home}
-            options={{
-                headerTitle: "Dashboard",
-                headerTitleAlign: 'center'
-            }}
-        />
-        <Stack.Screen
-            name="NewsScreen"
-            component={News}
-            options={{
-                headerTitle: "News",
-                headerTitleAlign: 'center'
-            }}
-        />
-        <Stack.Screen
-            name="ProfileScreen"
-            component={Profile}
-            options={{
-                headerTitle: "Profile",
-                headerTitleAlign: 'center'
-            }}
-        />
-    </Stack.Navigator>)
+    // Handle user state changes
+    function onAuthStateChanged(result) {
+        setUser(result)
+        if (initializing) setInitializing(false)
+    }
+
+    useEffect(() => {
+        const authSubscriber = auth().onAuthStateChanged(onAuthStateChanged)
+
+        // unsubscribe on unmount
+        return authSubscriber
+    }, [])
+
+    if (initializing) {
+        return null
+    }
+
+    return user ? (
+        <AuthContext.Provider value={user}>
+            <NavigationContainer>
+                <Stack.Navigator>
+                    <Stack.Screen
+                        name="HomeScreen"
+                        component={Home}
+                        options={{
+                            headerTitle: "Dashboard",
+                            headerTitleAlign: 'center'
+                        }}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </AuthContext.Provider>
+    ) : (
+            <NavigationContainer>
+                <Stack.Navigator headerMode="none">
+                    <Stack.Screen
+                        name="LoginScreen"
+                        component={Login}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        )
 }
 
-export default class Routes extends Component {
-
-    render() {
-        return (
-            <NavigationContainer>
-                <MainStack />
-            </NavigationContainer>
-
-        );
-    }
-};
+export default Routes;
