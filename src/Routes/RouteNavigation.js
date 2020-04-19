@@ -2,13 +2,26 @@ import React, { useState, useEffect, createContext } from 'react';
 import auth from '@react-native-firebase/auth';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { Login } from './../Pages/Login';
 import { Home } from './../Pages/Home';
+import { News } from './../Pages/News';
+import { Profile } from './../Pages/Profile';
 
 const AuthContext = createContext(null)
 const Stack = createStackNavigator()
+const Drawer = createDrawerNavigator();
+
+// const Pages = () => {
+//     return (
+//         <Stack.Navigator>
+//             {/* <Stack.Screen name="Home" component={Home} /> */}
+//             <Stack.Screen name="News" component={News} />
+//             <Stack.Screen name="Profile" component={Profile} />
+//         </Stack.Navigator>
+//     );
+// }
 
 const Routes = () => {
     const [initializing, setInitializing] = useState(true)
@@ -34,16 +47,23 @@ const Routes = () => {
     return user ? (
         <AuthContext.Provider value={user}>
             <NavigationContainer>
-                <Stack.Navigator>
-                    <Stack.Screen
-                        name="HomeScreen"
+                <Drawer.Navigator>
+                    <Drawer.Screen
+                        name="Home"
                         component={Home}
-                        options={{
-                            headerTitle: "Dashboard",
-                            headerTitleAlign: 'center'
-                        }}
+                        options={{ drawerLabel: 'Home', title: 'Home' }}
                     />
-                </Stack.Navigator>
+                    <Drawer.Screen
+                        name="News"
+                        component={News}
+                        options={{ drawerLabel: 'News', title: 'News' }}
+                    />
+                    <Drawer.Screen
+                        name="Profile"
+                        component={Profile}
+                        options={{ drawerLabel: 'Profile', title: 'Profile' }}
+                    />
+                </Drawer.Navigator>
             </NavigationContainer>
         </AuthContext.Provider>
     ) : (
